@@ -1,17 +1,18 @@
 var syntax        = 'scss'; // Syntax: sass or scss;
 
 var gulp          = require('gulp'),
-		gutil         = require('gulp-util' ),
-		sass          = require('gulp-sass'),
-		browsersync   = require('browser-sync'),
-		concat        = require('gulp-concat'),
-		uglify        = require('gulp-uglify'),
-		cleancss      = require('gulp-clean-css'),
-		rename        = require('gulp-rename'),
-		autoprefixer  = require('gulp-autoprefixer'),
-		notify        = require("gulp-notify"),
-		rsync         = require('gulp-rsync'),
-		sourcemaps	  = require('gulp-sourcemaps');
+	gutil         = require('gulp-util' ),
+	sass          = require('gulp-sass'),
+	browsersync   = require('browser-sync'),
+	concat        = require('gulp-concat'),
+	uglify        = require('gulp-uglify'),
+	cleancss      = require('gulp-clean-css'),
+	rename        = require('gulp-rename'),
+	autoprefixer  = require('gulp-autoprefixer'),
+	notify        = require("gulp-notify"),
+	rsync         = require('gulp-rsync'),
+	wait	      = require('gulp-wait'),
+	sourcemaps    = require('gulp-sourcemaps');
 
 gulp.task('browser-sync', function() {
 	browsersync({
@@ -27,6 +28,7 @@ gulp.task('browser-sync', function() {
 
 gulp.task('styles', function() {
 	return gulp.src('app/'+syntax+'/*.'+syntax+'')
+	.pipe(wait(500))
 	.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(sass({ outputStyle: 'expand' }).on("error", notify.onError()))
 		// .pipe(rename({ suffix: '.min', prefix : '' }))
