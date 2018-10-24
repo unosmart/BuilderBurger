@@ -33,7 +33,7 @@ gulp.task('styles', function() {
 		.pipe(sass({ outputStyle: 'expand' }).on("error", notify.onError()))
 		// .pipe(rename({ suffix: '.min', prefix : '' }))
 		.pipe(autoprefixer(['last 15 versions']))
-		.pipe(cleancss( {level: { 1: { specialComments: 0 } } })) // Opt., comment out when debugging
+		// .pipe(cleancss( {level: { 1: { specialComments: 0 } } })) // Opt., comment out when debugging
 	.pipe(sourcemaps.write())
 	.pipe(gulp.dest('app/css'))
 	.pipe(browsersync.reload( {stream: true} ))
@@ -67,7 +67,7 @@ gulp.task('rsync', function() {
 
 gulp.task('watch', ['styles', 'js', 'browser-sync'], function() {
 	gulp.watch('app/'+syntax+'/**/*.'+syntax+'', ['styles']);
-	gulp.watch(['libs/**/*.js', 'app/js/app.min.js'], ['js']);
+	gulp.watch(['libs/**/*.js', 'app/js/*.js'], ['js']);
 	gulp.watch('app/*.html', browsersync.reload)
 });
 
